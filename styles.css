@@ -1,0 +1,31 @@
+/* Place your CSS styles in this file */
+
+body {background-color:cadetblue;
+}
+
+h1 {font-family: times new roman; text-align:center ; font-weight: bolder;color:aliceblue;
+}
+
+#p1 {font-family: georgia;text-align: center;color:blanchedalmond;
+}
+
+p {font-family : times new roman; color:aliceblue; text-align:left;
+}
+
+ul {List-style-type:none;
+    color : white;
+    border : 50px;
+    background-color :crimson;
+    text-align: center;
+}
+
+Li {display : inline;
+    padding-left : 50px;
+    padding-right: 50px;
+    font-size : 15px;
+    font-family: caveat;
+    font-weight: bold;
+}
+
+marquee {color :darkblue;
+}
