@@ -20,7 +20,277 @@
         <li>Product</li>
        </ul>
 
-<p>Klik di <a href="https://colab.research.google.com/drive/1l1BXMvsWJhZgSSS8V02I4w2OwkhdKrQO?usp=sharing">sini</a> untuk melihat kode kami</p>
+    <style>
+        /* Gaya tambahan khusus untuk tampilan kuis agar menarik */
+        .quiz-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            font-family: Arial, sans-serif;
+            color: #333333;
+        }
+        .quiz-header {
+            border-bottom: 2px solid #eeeeee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .btn-opsi {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.2s;
+        }
+        .btn-opsi:hover {
+            background-color: #e0e0e0;
+        }
+        .btn-utama {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn-utama:hover {
+            background-color: #45a049;
+        }
+        .feedback {
+            font-weight: bold;
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .sehat { background-color: #d4edda; color: #155724; }
+        .kurang-sehat { background-color: #f8d7da; color: #721c24; }
+        .input-nama {
+            padding: 10px;
+            width: 80%;
+            margin-bottom: 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th { background-color: #f2f2f2; }
+    </style>
+
+    <div class="quiz-container">
+        <div id="quiz-box">
+            <h2>KUIS MAKANAN SEHAT DAN TIDAK SEHAT</h2>
+            <h3>Yuk, Cari Tahu Makananmu Sudah Termasuk Makanan Sehat Belum, ya?</h3>
+            <p>Tekan tombol di bawah untuk memulai game!</p>
+            <button class="btn-utama" onclick="mulaiKuis()">Ayo Main</button>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+
+    <script>
+        const rondes = [
+            {
+                ronde: 1,
+                header: "Sarapan dulu ah, lapar!",
+                pertanyaan: "Hari ini mau sarapan apa, ya?",
+                opsi: [
+                    {label: "Kentang Rebus", sehat: true},
+                    {label: "Mie Goreng", sehat: false},
+                    {label: "Telur Rebus", sehat: true},
+                    {label: "Roti Gandum", sehat: false}
+                ]
+            },
+            {
+                ronde: 2,
+                header: "Udah siang, makan dulu deh biar tetap semangat!",
+                pertanyaan: "Makan siang pakai apa nih?",
+                opsi: [
+                    {label: "Ikan Bakar", sehat: true},
+                    {label: "Nasi Padang Porsi Besar", sehat: false},
+                    {label: "Ayam Geprek", sehat: false},
+                    {label: "Gado-gado", sehat: true}
+                ]
+            },
+            {
+                ronde: 3,
+                header: "Setelah seharian beraktivitas, waktunya makan malam!",
+                pertanyaan: "Hmm, makan apa nyak?",
+                opsi: [
+                    {label: "Martabak Telur", sehat: false},
+                    {label: "Seblak", sehat: false},
+                    {label: "Pizza", sehat: false},
+                    {label: "Nasi + Sayur + Seafood", sehat: true}
+                ]
+            },
+            {
+                ronde: 4,
+                header: "Bonus Bonus!",
+                pertanyaan: "Pilih minumanmu!",
+                opsi: [
+                    {label: "Air Putih", sehat: true},
+                    {label: "Matcha Latte", sehat: false},
+                    {label: "Milk Tea", sehat: false},
+                    {label: "Jus Murni", sehat: true}
+                ]
+            },
+            {
+                ronde: 5,
+                header: "BONUS PART 2",
+                pertanyaan: "Waktunya yang manis-manis!",
+                opsi: [
+                    {label: "Dubai Chewy Cookie", sehat: false},
+                    {label: "Tiramisu Cake", sehat: false},
+                    {label: "Buah-buahan", sehat: true},
+                    {label: "Salad Buah", sehat: true}
+                ]
+            }
+        ];
+
+        let namaPemain = "";
+        let rondeSekarang = 0;
+        let totalPoin = 0;
+        let rekap = [];
+
+        const quizBox = document.getElementById('quiz-box');
+
+        function mulaiKuis() {
+            quizBox.innerHTML = `
+                <h2>Masukkan Namamu</h2>
+                <input type="text" id="input-nama" class="input-nama" placeholder="Tulis nama di sini..."><br>
+                <button class="btn-utama" onclick="simpanNama()">Lanjut</button>
+            `;
+        }
+
+        function simpanNama() {
+            const input = document.getElementById('input-nama').value.trim();
+            if(!input) {
+                alert("Nama tidak boleh kosong!");
+                return;
+            }
+            namaPemain = input;
+            rondeSekarang = 0;
+            totalPoin = 0;
+            rekap = [];
+            tampilkanSoal();
+        }
+
+        function tampilkanSoal() {
+            if(rondeSekarang < rondes.length) {
+                let dataRonde = rondes[rondeSekarang];
+                let opsiHtml = "";
+                
+                dataRonde.opsi.forEach((pilihan, index) => {
+                    opsiHtml += `<button class="btn-opsi" onclick="pilihJawaban(${index})">(${index+1}) ${pilihan.label}</button>`;
+                });
+
+                quizBox.innerHTML = `
+                    <h3>[ RONDE ${dataRonde.ronde} dari ${rondes.length} ]</h3>
+                    <p><strong>${dataRonde.header}</strong></p>
+                    <p>${dataRonde.pertanyaan}</p>
+                    <div>${opsiHtml}</div>
+                `;
+            } else {
+                tampilkanHasilAkhir();
+            }
+        }
+
+        function pilihJawaban(indexOpsi) {
+            let dataRonde = rondes[rondeSekarang];
+            let opsiDipilih = dataRonde.opsi[indexOpsi];
+            let poin = opsiDipilih.sehat ? 5 : -2;
+            totalPoin += poin;
+
+            rekap.push({
+                ronde: dataRonde.ronde,
+                pilihan: opsiDipilih.label,
+                sehat: opsiDipilih.sehat,
+                poin: poin
+            });
+
+            let feedbackKelas = opsiDipilih.sehat ? 'sehat' : 'kurang-sehat';
+            let feedbackTeks = opsiDipilih.sehat ? 'Pilihan sehat! +5 poin' : 'Kurang sehat nih... -2 poin';
+
+            quizBox.innerHTML = `
+                <h3>Ronde ${dataRonde.ronde} Selesai</h3>
+                <div class="feedback ${feedbackKelas}">${feedbackTeks}</div>
+                <p>Total Poin Kamu Sekarang: <strong>${totalPoin}</strong></p>
+                <button class="btn-utama" onclick="lanjutRonde()">Ronde Berikutnya</button>
+            `;
+        }
+
+        function lanjutRonde() {
+            rondeSekarang++;
+            tampilkanSoal();
+        }
+
+        function tampilkanHasilAkhir() {
+            let kategori = "";
+            let pesan = "";
+
+            if (totalPoin >= 15) {
+                kategori = "Sehat";
+                pesan = "Ntaps, kamu orang yang sehat! Pertahankan ya!";
+            } else if (totalPoin >= 5) {
+                kategori = "Sedang";
+                pesan = "Aduh, masih suka tergoda ya? Yuk bisa yuk!";
+            } else {
+                kategori = "Kurang Sehat";
+                pesan = "Wah, kamu harus mulai makan makanan sehat, ya! Sayangi tubuhmu, kawand!";
+            }
+
+            let rekapHtml = "";
+            rekap.forEach(item => {
+                let status = item.sehat ? "+5 (Sehat)" : "-2 (Kurang Sehat)";
+                rekapHtml += `
+                    <tr>
+                        <td>Ronde ${item.ronde}</td>
+                        <td>${item.pilihan}</td>
+                        <td>${status}</td>
+                    </tr>
+                `;
+            });
+
+            quizBox.innerHTML = `
+                <h2>HASIL KUIS</h2>
+                <p><strong>Pemain:</strong> ${namaPemain}</p>
+                <p><strong>Total Poin:</strong> ${totalPoin >= 0 ? '+' + totalPoin : totalPoin}</p>
+                <p><strong>Kategori:</strong> ${kategori}</p>
+                <p><em>"${pesan}"</em></p>
+                
+                <h3>Rekap Jawabanmu:</h3>
+                <table>
+                    <tr>
+                        <th>Ronde</th>
+                        <th>Pilihan</th>
+                        <th>Status</th>
+                    </tr>
+                    ${rekapHtml}
+                </table>
+                <br>
+                <button class="btn-utama" onclick="mulaiKuis()">Main Lagi</button>
+            `;
+        }
+    </script>
+
+<p class="link-kode">Klik di <a href="https://colab.research.google.com/drive/1l1BXMvsWJhZgSSS8V02I4w2OwkhdKrQO?usp=sharing">sini</a> untuk melihat kode kami</p>
     
 <marquee>Made by: ANAKbule</marquee>
 

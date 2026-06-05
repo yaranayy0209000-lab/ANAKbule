@@ -1,6 +1,6 @@
 /* Place your CSS styles in this file */
 
-body {background="download.jpeg">
+body {background-color= white;
 }
 
 h1 {font-family: times new roman; text-align:center ; font-weight: bolder;color: black;
@@ -22,6 +22,32 @@ Li {display : inline;
     font-size : 15px;
     font-family: caveat;
     font-weight: bold;
+}
+
+.link-kode {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.link-kode a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.link-kode a:hover {
+    text-decoration: underline;
+}
+
+marquee {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #f1f1f1; /* Memberi warna latar belakang agar teks terlihat jelas */
+    padding: 5px 0;
+    z-index: 999; /* Memastikan teks berjalan selalu berada di lapisan paling depan */
 }
 
 marquee {color : navy; 
