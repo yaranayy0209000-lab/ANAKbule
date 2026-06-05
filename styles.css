@@ -1,6 +1,10 @@
 /* Place your CSS styles in this file */
 
-body {background-color= white;
+body {background-image: url(download.jpeg);
+          background-repeat: no-repeat;
+          background-position: center;
+          background-attachment:fixed;
+          background-size: 100% 100%;
 }
 
 h1 {font-family: times new roman; text-align:center ; font-weight: bolder;color: black;
