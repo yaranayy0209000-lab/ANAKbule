@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kuis Makanan Sehat dan Tidak Sehat</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --green:       #2D6A2D;
+    --green-light: #5BAD5B;
+    --green-pale:  #E8F5E8;
+    --red:         #C0392B;
+    --red-pale:    #FDECEA;
+    --yellow:      #F39C12;
+    --yellow-pale: #FEF9E7;
+    --cream:       #FFFDF5;
+    --ink:         #1A1A1A;
+    --ink2:        #555;
+    --card-shadow: 0 8px 32px rgba(0,0,0,0.10);
+    --radius:      20px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-image:
+      radial-gradient(circle at 10% 20%, #d4edda55 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, #fff3cd55 0%, transparent 40%);
+  }
+
+  /* ── NAVBAR ── */
+  nav {
+    background: #fff;
+    border-bottom: 1.5px solid #e8f5e8;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .nav-brand {
+    font-family: 'Fredoka One', cursive;
+    font-size: 18px;
+    color: var(--green);
+    letter-spacing: 0.5px;
+  }
+  .nav-links { display: flex; gap: 4px; }
+  .nav-btn {
+    background: none;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--ink2);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .nav-btn:hover { background: var(--green-pale); color: var(--green); }
+  .nav-btn.active { background: var(--green); color: #fff; }
+
+  /* ── PAGES ── */
+  .page { display: none; flex: 1; }
+  .page.active { display: flex; align-items: center; justify-content: center; padding: 28px 20px; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .page.active > * { animation: fadeUp 0.35s ease; }
+
+  /* ── CARD ── */
+  .card {
+    background: #fff;
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
+    padding: 36px 28px;
+    text-align: center;
+    border: 1.5px solid #e8f5e8;
+    width: 100%;
+    max-width: 480px;
+  }
+
+  .big-emoji { font-size: 72px; display: block; margin-bottom: 20px; }
+  .game-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 26px;
+    color: var(--green);
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .game-subtitle {
+    font-size: 14px;
+    color: var(--ink2);
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+
+  /* ── BUTTONS ── */
+  .btn {
+    display: inline-block;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    padding: 14px 36px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.12s, box-shadow 0.12s;
+  }
+  .btn:active { transform: scale(0.96); }
+  .btn-green {
+    background: var(--green);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(45,106,45,0.28);
+  }
+  .btn-green:hover { background: #235a23; }
+  .btn-ghost {
+    background: transparent;
+    color: var(--green);
+    border: 2px solid var(--green);
+    margin-left: 10px;
+  }
+  .btn-ghost:hover { background: var(--green-pale); }
+
+  /* ── INPUT ── */
+  .input-wrap { text-align: left; margin-bottom: 24px; }
+  .input-wrap label {
+    display: block; font-size: 13px; font-weight: 700;
+    color: var(--ink2); margin-bottom: 8px;
+    letter-spacing: 0.5px; text-transform: uppercase;
+  }
+  .input-wrap input {
+    width: 100%; padding: 14px 18px;
+    font-size: 16px; font-family: 'Nunito', sans-serif; font-weight: 600;
+    border: 2px solid #dce8dc; border-radius: 14px;
+    background: var(--green-pale); color: var(--ink); outline: none;
+    transition: border 0.2s;
+  }
+  .input-wrap input:focus { border-color: var(--green-light); }
+
+  /* ── PROGRESS ── */
+  .progress-section { margin-bottom: 20px; }
+  .progress-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .ronde-tag {
+    font-size: 12px; font-weight: 800; color: var(--green);
+    background: var(--green-pale); padding: 4px 12px;
+    border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .score-tag { font-size: 13px; font-weight: 800; color: var(--ink2); }
+  .score-tag span { color: var(--green); font-size: 16px; }
+  .progress-track { width: 100%; height: 8px; background: #e8f0e8; border-radius: 99px; overflow: hidden; }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green-light), var(--green));
+    border-radius: 99px;
+    transition: width 0.5s cubic-bezier(.4,0,.2,1);
+  }
+
+  /* ── SOAL ── */
+  .soal-header {
+    font-family: 'Fredoka One', cursive; font-size: 19px;
+    color: var(--ink); margin-bottom: 6px; line-height: 1.3;
+  }
+  .soal-question { font-size: 14px; color: var(--ink2); margin-bottom: 20px; font-weight: 600; }
+
+  /* ── OPSI ── */
+  .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .opt-btn {
+    background: #fff; border: 2px solid #dce8dc; border-radius: 16px;
+    padding: 14px 12px; text-align: left; cursor: pointer;
+    font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700;
+    color: var(--ink); line-height: 1.4; transition: all 0.15s;
+  }
+  .opt-btn:hover:not(:disabled) { border-color: var(--green-light); background: var(--green-pale); transform: translateY(-2px); }
+  .opt-btn:disabled { cursor: default; }
+  .opt-btn .num {
+    display: inline-block; width: 22px; height: 22px;
+    background: #e8f0e8; border-radius: 50%; font-size: 11px;
+    font-weight: 800; color: var(--green); text-align: center;
+    line-height: 22px; margin-bottom: 6px;
+  }
+  .opt-btn.sehat { border-color: var(--green); background: var(--green-pale); color: var(--green); }
+  .opt-btn.sehat .num { background: var(--green); color: #fff; }
+  .opt-btn.tidak { border-color: var(--red); background: var(--red-pale); color: var(--red); }
+  .opt-btn.tidak .num { background: var(--red); color: #fff; }
+  .opt-btn.redup { opacity: 0.35; }
+
+  /* ── FEEDBACK ── */
+  .feedback { padding: 12px 16px; border-radius: 14px; font-size: 14px; font-weight: 700; margin-bottom: 16px; display: none; }
+  .feedback.sehat { background: var(--green-pale); color: var(--green); display: block; }
+  .feedback.tidak { background: var(--red-pale); color: var(--red); display: block; }
+
+  .btn-lanjut {
+    width: 100%; padding: 14px; font-size: 15px; font-weight: 800;
+    background: var(--green); color: #fff; border: none; border-radius: 50px;
+    cursor: pointer; display: none;
+    box-shadow: 0 4px 16px rgba(45,106,45,0.28);
+    transition: background 0.15s, transform 0.12s;
+    font-family: 'Nunito', sans-serif;
+  }
+  .btn-lanjut:hover { background: #235a23; }
+
+  /* ── GAME SCREENS ── */
+  .gscreen { display: none; }
+  .gscreen.active { display: block; }
+
+  /* ── HASIL ── */
+  .result-icon { font-size: 64px; display: block; margin-bottom: 16px; }
+  .result-name { font-size: 15px; color: var(--ink2); font-weight: 700; margin-bottom: 4px; }
+  .result-poin { font-family: 'Fredoka One', cursive; font-size: 52px; margin-bottom: 4px; }
+  .result-poin.positif { color: var(--green); }
+  .result-poin.negatif { color: var(--red); }
+  .result-poin.netral  { color: var(--yellow); }
+  .kat-badge {
+    display: inline-block; padding: 5px 18px; border-radius: 20px;
+    font-size: 12px; font-weight: 800; letter-spacing: 0.5px;
+    text-transform: uppercase; margin-bottom: 16px;
+  }
+  .kat-sehat  { background: var(--green-pale);  color: var(--green); }
+  .kat-sedang { background: var(--yellow-pale); color: var(--yellow); }
+  .kat-tidak  { background: var(--red-pale);    color: var(--red); }
+  .result-msg {
+    font-size: 15px; font-weight: 700; color: var(--ink);
+    line-height: 1.6; margin-bottom: 24px; padding: 16px;
+    background: var(--green-pale); border-radius: 14px;
+  }
+  .rekap-title { font-size: 12px; font-weight: 800; color: var(--ink2); text-transform: uppercase; letter-spacing: 0.5px; text-align: left; margin-bottom: 10px; }
+  .rekap-item { display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 700; padding: 9px 12px; border-radius: 10px; margin-bottom: 6px; text-align: left; }
+  .rekap-item.s { background: var(--green-pale); color: var(--green); }
+  .rekap-item.t { background: var(--red-pale);   color: var(--red); }
+  .rekap-poin { font-size: 13px; font-weight: 800; white-space: nowrap; margin-left: 8px; }
+  .divider { height: 1px; background: #e8f0e8; margin: 20px 0; }
+  .aba-box { background: var(--green-pale); border-radius: 16px; padding: 20px; margin-bottom: 24px; }
+  .aba-box p { font-size: 15px; font-weight: 700; color: var(--green); line-height: 1.6; }
+
+  /* ── HOME PAGE ── */
+  .home-hero { max-width: 520px; width: 100%; }
+  .home-hero .card { padding: 48px 36px; }
+  .home-badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px; }
+  .badge {
+    background: var(--green-pale); color: var(--green);
+    font-size: 12px; font-weight: 800; padding: 6px 14px;
+    border-radius: 20px; letter-spacing: 0.3px;
+  }
+  .badge.red { background: var(--red-pale); color: var(--red); }
+  .badge.yellow { background: var(--yellow-pale); color: var(--yellow); }
+
+  /* ── DESIGN PAGE ── */
+  .design-wrap { max-width: 520px; width: 100%; }
+  .design-wrap .card { text-align: left; padding: 36px 28px; }
+  .design-title { font-family: 'Fredoka One', cursive; font-size: 22px; color: var(--green); margin-bottom: 20px; text-align: center; }
+  .info-block { margin-bottom: 20px; }
+  .info-block h3 { font-size: 13px; font-weight: 800; color: var(--ink2); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+  .info-row {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 14px; border-radius: 12px;
+    background: var(--green-pale); margin-bottom: 8px;
+    font-size: 14px; font-weight: 700; color: var(--ink);
+  }
+  .info-row.red { background: var(--red-pale); }
+  .info-row.yellow { background: var(--yellow-pale); }
+  .info-row .ico { font-size: 20px; flex-shrink: 0; }
+  .info-row p { font-size: 13px; font-weight: 600; color: var(--ink2); margin-top: 2px; line-height: 1.5; }
+  .poin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+  .poin-card { padding: 16px; border-radius: 14px; text-align: center; }
+  .poin-card.s { background: var(--green-pale); }
+  .poin-card.t { background: var(--red-pale); }
+  .poin-num { font-family: 'Fredoka One', cursive; font-size: 32px; }
+  .poin-card.s .poin-num { color: var(--green); }
+  .poin-card.t .poin-num { color: var(--red); }
+  .poin-label { font-size: 12px; font-weight: 700; color: var(--ink2); margin-top: 4px; }
+  .kat-list { display: flex; flex-direction: column; gap: 8px; }
+  .kat-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; border-radius: 12px; font-size: 13px; font-weight: 700;
+  }
+  .kat-row.s { background: var(--green-pale); color: var(--green); }
+  .kat-row.m { background: var(--yellow-pale); color: var(--yellow); }
+  .kat-row.t { background: var(--red-pale); color: var(--red); }
+  .kat-row .kat-ico { font-size: 22px; }
+  .kat-row .kat-info small { font-size: 11px; font-weight: 600; opacity: 0.8; display: block; margin-top: 2px; }
+  .cta-center { text-align: center; margin-top: 24px; }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-brand">🥗 KuisSehat</div>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="showPage('home')">Home</button>
+    <button class="nav-btn" onclick="showPage('product')">Product</button>
+    <button class="nav-btn" onclick="showPage('design')">Design</button>
+  </div>
+</nav>
+
+<!-- ══════════════ PAGE: HOME ══════════════ -->
+<div class="page active" id="page-home">
+  <div class="home-hero">
+    <div class="card">
+      <span class="big-emoji">🥗</span>
+      <div class="game-title">Kuis Makanan Sehat<br>dan Tidak Sehat</div>
+      <div class="game-subtitle">Yuk, Cari Tahu Makananmu Sudah Termasuk<br>Makanan Sehat Belum, ya?</div>
+      <div class="home-badges">
+        <span class="badge">🎮 5 Ronde</span>
+        <span class="badge yellow">⭐ Sistem Poin</span>
+        <span class="badge red">🏆 Hasil Instan</span>
+      </div>
+      <button class="btn btn-green" onclick="showPage('product'); goGame('g-input')">Ayo Main 🎮</button>
+      <button class="btn btn-ghost" onclick="showPage('design')">Cara Main →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ PAGE: PRODUCT (GAME) ══════════════ -->
+<div class="page" id="page-product">
+  <div style="width:100%;max-width:480px;">
+
+    <!-- G-HOME -->
+    <div class="gscreen active card" id="g-home">
+      <span class="big-emoji">🥗</span>
+      <div class="game-title">Kuis Makanan Sehat<br>dan Tidak Sehat</div>
+      <div class="game-subtitle">Yuk, Cari Tahu Makananmu Sudah Termasuk<br>Makanan Sehat Belum, ya?</div>
+      <button class="btn btn-green" onclick="goGame('g-input')">Ayo Main 🎮</button>
+    </div>
+
+    <!-- G-INPUT -->
+    <div class="gscreen card" id="g-input">
+      <span class="big-emoji">👋</span>
+      <div class="game-title">Siapa kamu?</div>
+      <div class="game-subtitle">Masukkan namamu dulu sebelum mulai main!</div>
+      <div class="input-wrap">
+        <label>Masukkan Nama</label>
+        <input type="text" id="nama-input" placeholder="Nama kamu di sini..." maxlength="30"
+               onkeydown="if(event.key==='Enter') handleNama()" />
+      </div>
+      <button class="btn btn-green" onclick="handleNama()">Lanjut →</button>
+    </div>
+
+    <!-- G-ABAABA -->
+    <div class="gscreen card" id="g-abaaba">
+      <span class="big-emoji">🍽️</span>
+      <div class="game-title">Halo, <span id="nama-halo"></span>!</div>
+      <div class="aba-box">
+        <p>🎯 Jawab Sesuai Kebiasaan Kamu, ya!<br>Ada 5 ronde yang harus kamu selesaikan.</p>
+      </div>
+      <div class="game-subtitle">✅ Pilih salah satu dari 4 opsi di setiap ronde.<br>🌿 Makanan sehat = <strong>+5 poin</strong> · 🍟 Tidak sehat = <strong>−2 poin</strong></div>
+      <button class="btn btn-green" onclick="startGame()">Mulai Kuis! 🚀</button>
+    </div>
+
+    <!-- G-GAME -->
+    <div class="gscreen card" id="g-game">
+      <div class="progress-section">
+        <div class="progress-top">
+          <div class="ronde-tag" id="ronde-tag">Ronde 1/5</div>
+          <div class="score-tag">Poin: <span id="poin-live">0</span></div>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="prog-fill" style="width:0%"></div>
+        </div>
+      </div>
+      <div class="soal-header" id="soal-header"></div>
+      <div class="soal-question" id="soal-question"></div>
+      <div class="options-grid" id="opts"></div>
+      <div class="feedback" id="feedback"></div>
+      <button class="btn-lanjut" id="btn-lanjut" onclick="nextRonde()">Lanjut →</button>
+    </div>
+
+    <!-- G-HASIL -->
+    <div class="gscreen card" id="g-hasil">
+      <span class="result-icon" id="r-icon">🏆</span>
+      <div class="result-name" id="r-name"></div>
+      <div class="result-poin" id="r-poin"></div>
+      <div class="kat-badge" id="r-kat"></div>
+      <div class="result-msg" id="r-msg"></div>
+      <div class="rekap-title">📋 Rekap Jawabanmu</div>
+      <div id="rekap-list"></div>
+      <div class="divider"></div>
+      <button class="btn btn-green" onclick="resetGame()">Main Lagi 🔄</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════ PAGE: DESIGN ══════════════ -->
+<div class="page" id="page-design">
+  <div class="design-wrap">
+    <div class="card">
+      <div class="design-title">📖 Cara Main & Info Game</div>
+
+      <div class="info-block">
+        <h3>Tentang Game</h3>
+        <div class="info-row">
+          <span class="ico">🎯</span>
+          <div>
+            Kuis interaktif tentang kebiasaan makan sehari-hari
+            <p>Jawab 5 pertanyaan seputar sarapan, makan siang, makan malam, minuman, dan snack.</p>
+          </div>
+        </div>
+        <div class="info-row">
+          <span class="ico">👤</span>
+          <div>
+            Masukkan nama pemain sebelum mulai
+            <p>Nama kamu akan muncul di halaman hasil akhir.</p>
+          </div>
+        </div>
+        <div class="info-row">
+          <span class="ico">☝️</span>
+          <div>
+            Pilih satu dari empat opsi per ronde
+            <p>Pilihan tidak bisa diubah setelah diklik.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-block">
+        <h3>Sistem Poin</h3>
+        <div class="poin-grid">
+          <div class="poin-card s">
+            <div class="poin-num">+5</div>
+            <div class="poin-label">🌿 Makanan Sehat</div>
+          </div>
+          <div class="poin-card t">
+            <div class="poin-num">−2</div>
+            <div class="poin-label">🍟 Tidak Sehat</div>
+          </div>
+        </div>
+        <div class="info-block">
+          <h3>Makanan Sehat (+5 poin)</h3>
+          <div class="info-row"><span class="ico">✅</span><div>Kentang Rebus, Telur Rebus, Ikan Bakar, Gado-gado, Nasi+Sayur+Seafood, Air Putih, Jus Murni, Buah-buahan, Salad Buah</div></div>
+        </div>
+        <div class="info-block">
+          <h3>Tidak Sehat (−2 poin)</h3>
+          <div class="info-row red"><span class="ico">❌</span><div>Mie Goreng, Roti Gandum, Nasi Padang Porsi Besar, Ayam Geprek, Martabak Telur, Seblak, Pizza, Matcha Latte, Milk Tea, Dubai Chewy Cookie, Tiramisu Cake</div></div>
+        </div>
+      </div>
+
+      <div class="info-block">
+        <h3>Kategori Hasil</h3>
+        <div class="kat-list">
+          <div class="kat-row s">
+            <span class="kat-ico">🏆</span>
+            <div class="kat-info">
+              Sehat
+              <small>Poin ≥ 15 · "Ntaps, kamu orang yang sehat! Pertahankan ya!"</small>
+            </div>
+          </div>
+          <div class="kat-row m">
+            <span class="kat-ico">🌱</span>
+            <div class="kat-info">
+              Sedang
+              <small>Poin 5–14 · "Aduh, masih suka tergoda ya? Yuk bisa yuk!"</small>
+            </div>
+          </div>
+          <div class="kat-row t">
+            <span class="kat-ico">😬</span>
+            <div class="kat-info">
+              Kurang Sehat
+              <small>Poin &lt; 5 · "Wah, kamu harus mulai makan makanan sehat, ya!"</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-center">
+        <button class="btn btn-green" onclick="showPage('product'); goGame('g-home')">Mulai Main Sekarang 🚀</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── NAVIGASI HALAMAN ── */
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  const btns = document.querySelectorAll('.nav-btn');
+  const map = { home: 0, product: 1, design: 2 };
+  btns[map[id]].classList.add('active');
+}
+
+/* ── GAME SCREENS ── */
+function goGame(id) {
+  document.querySelectorAll('.gscreen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+/* ── DATA SOAL ── */
+const DATA = [
+  {
+    header: "Sarapan dulu ah, lapar! 🌅",
+    tanya:  "Hari ini mau sarapan apa, ya?",
+    opsi: [
+      { label:"Kentang Rebus 🥔",          sehat:true  },
+      { label:"Mie Goreng 🍜",             sehat:false },
+      { label:"Telur Rebus 🥚",            sehat:true  },
+      { label:"Roti Gandum 🍞",            sehat:false },
+    ]
+  },
+  {
+    header: "Udah siang, makan dulu biar semangat! ☀️",
+    tanya:  "Makan siang pakai apa nih?",
+    opsi: [
+      { label:"Ikan Bakar 🐟",             sehat:true  },
+      { label:"Nasi Padang Porsi Besar 🍛",sehat:false },
+      { label:"Ayam Geprek 🍗",            sehat:false },
+      { label:"Gado-gado 🥗",              sehat:true  },
+    ]
+  },
+  {
+    header: "Waktunya makan malam! 🌙",
+    tanya:  "Hmm, makan apa nyak?",
+    opsi: [
+      { label:"Martabak Telur 🥚",         sehat:false },
+      { label:"Seblak 🌶️",                sehat:false },
+      { label:"Pizza 🍕",                 sehat:false },
+      { label:"Nasi+Sayur+Seafood 🍱",     sehat:true  },
+    ]
+  },
+  {
+    header: "Bonus Bonus! 🎁",
+    tanya:  "Pilih minumanmu!",
+    opsi: [
+      { label:"Air Putih 💧",             sehat:true  },
+      { label:"Matcha Latte 🍵",          sehat:false },
+      { label:"Milk Tea 🧋",              sehat:false },
+      { label:"Jus Murni 🍊",             sehat:true  },
+    ]
+  },
+  {
+    header: "BONUS PART 2 🎉",
+    tanya:  "Waktunya yang manis-manis!",
+    opsi: [
+      { label:"Dubai Chewy Cookie 🍪",    sehat:false },
+      { label:"Tiramisu Cake 🎂",         sehat:false },
+      { label:"Buah-buahan 🍎",           sehat:true  },
+      { label:"Salad Buah 🥑",            sehat:true  },
+    ]
+  },
+];
+
+let ronde=0, poin=0, nama="", jawaban=[], dipilih=false;
+
+function handleNama() {
+  const v = document.getElementById('nama-input').value.trim();
+  if (!v) { document.getElementById('nama-input').focus(); return; }
+  nama = v;
+  document.getElementById('nama-halo').textContent = v;
+  goGame('g-abaaba');
+}
+
+function startGame() {
+  ronde=0; poin=0; jawaban=[]; dipilih=false;
+  loadRonde();
+  goGame('g-game');
+}
+
+function loadRonde() {
+  const r = DATA[ronde];
+  document.getElementById('ronde-tag').textContent = `Ronde ${ronde+1}/${DATA.length}`;
+  document.getElementById('poin-live').textContent = poin >= 0 ? '+'+poin : poin;
+  document.getElementById('prog-fill').style.width = (ronde / DATA.length * 100) + '%';
+  document.getElementById('soal-header').textContent = r.header;
+  document.getElementById('soal-question').textContent = r.tanya;
+  document.getElementById('feedback').className = 'feedback';
+  document.getElementById('btn-lanjut').style.display = 'none';
+  dipilih = false;
+
+  const g = document.getElementById('opts');
+  g.innerHTML = '';
+  r.opsi.forEach((o, i) => {
+    const b = document.createElement('button');
+    b.className = 'opt-btn';
+    b.innerHTML = `<div class="num">${i+1}</div><br>${o.label}`;
+    b.onclick = () => pilih(b, o);
+    g.appendChild(b);
+  });
+}
+
+function pilih(btn, opsi) {
+  if (dipilih) return;
+  dipilih = true;
+  const pt = opsi.sehat ? 5 : -2;
+  poin += pt;
+  document.getElementById('poin-live').textContent = poin >= 0 ? '+'+poin : poin;
+
+  document.querySelectorAll('.opt-btn').forEach(b => {
+    b.disabled = true;
+    if (b !== btn) b.classList.add('redup');
+  });
+  btn.classList.add(opsi.sehat ? 'sehat' : 'tidak');
+
+  const fb = document.getElementById('feedback');
+  fb.textContent = opsi.sehat ? '🌿 Pilihan sehat! +5 poin untuk kamu!' : '🍟 Kurang sehat nih... -2 poin.';
+  fb.className = 'feedback ' + (opsi.sehat ? 'sehat' : 'tidak');
+  document.getElementById('btn-lanjut').style.display = 'block';
+  jawaban.push({ ronde: ronde+1, label: opsi.label, sehat: opsi.sehat, poin: pt });
+}
+
+function nextRonde() {
+  ronde++;
+  if (ronde >= DATA.length) showHasil();
+  else loadRonde();
+}
+
+function showHasil() {
+  document.getElementById('prog-fill').style.width = '100%';
+  goGame('g-hasil');
+  document.getElementById('r-name').textContent = 'Pemain: ' + nama;
+
+  const rp = document.getElementById('r-poin');
+  rp.textContent = (poin >= 0 ? '+' : '') + poin + ' poin';
+  rp.className = 'result-poin ' + (poin >= 15 ? 'positif' : poin >= 5 ? 'netral' : 'negatif');
+
+  let icon, katClass, katLabel, msg;
+  if (poin >= 15) {
+    icon='🏆'; katLabel='Kategori: Sehat'; katClass='kat-sehat';
+    msg='Ntaps, kamu orang yang sehat! Pertahankan ya! 💪';
+  } else if (poin >= 5) {
+    icon='🌱'; katLabel='Kategori: Sedang'; katClass='kat-sedang';
+    msg='Aduh, masih suka tergoda ya? Yuk bisa yuk! 😅';
+  } else {
+    icon='😬'; katLabel='Kategori: Kurang Sehat'; katClass='kat-tidak';
+    msg='Wah, kamu harus mulai makan makanan sehat, ya! Sayangi tubuhmu, kawand! ❤️';
+  }
+
+  document.getElementById('r-icon').textContent = icon;
+  document.getElementById('r-kat').textContent = katLabel;
+  document.getElementById('r-kat').className = 'kat-badge ' + katClass;
+  document.getElementById('r-msg').textContent = msg;
+
+  const list = document.getElementById('rekap-list');
+  list.innerHTML = '';
+  jawaban.forEach(j => {
+    const d = document.createElement('div');
+    d.className = 'rekap-item ' + (j.sehat ? 's' : 't');
+    d.innerHTML = `<span>Ronde ${j.ronde}: ${j.label}</span><span class="rekap-poin">${j.poin > 0 ? '+' : ''}${j.poin} poin</span>`;
+    list.appendChild(d);
+  });
+}
+
+function resetGame() {
+  document.getElementById('nama-input').value = '';
+  goGame('g-home');
+}
+</script>
+</body>
+</html>
