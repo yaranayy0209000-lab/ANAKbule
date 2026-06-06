@@ -53,6 +53,26 @@ ul.main-nav {
     border-radius: 50px;
 }
 
+/* --- Pengaturan Gambar Mobil Pikap --- */
+.home-pikap-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    /* Margin atas minus untuk memotong jarak kosong yang terlalu jauh dengan teks di atas */
+    margin-top: -30px; 
+    /* Margin bawah untuk mengatur jarak yang pas dengan kotak konten di bawahnya */
+    margin-bottom: -10px; 
+}
+
+.home-pikap-container img {
+    max-width: 380px; /* Ukuran gambar dibuat pas (tidak terlalu besar) */
+    width: 100%;
+    height: auto;
+    display: block;
+    background: transparent; /* Memastikan background tetap transparan */
+}
+
 ul.main-nav li {
     display: inline-block;
     padding: 0 30px;
@@ -133,4 +153,17 @@ marquee {
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
     box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    
+    /* Membuat teks dan gambar sejajar secara vertikal */
+    display: flex;
+    align-items: center;
+}
+
+/* --- Pengaturan Gambar Pikap Kecil di Dalam Marquee --- */
+.marquee-pikap {
+    height: 24px; /* Menyesuaikan tinggi marquee agar tidak merusak layout */
+    width: auto;  /* Proporsi gambar tetap terjaga dan tidak gepeng */
+    margin-left: 10px; /* Memberi jarak tipis di depan gambar agar tidak menempel dengan teks */
+    display: inline-block;
+    vertical-align: middle;
 }
