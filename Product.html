@@ -1,94 +1,28 @@
 <!doctype html>
-
 <html>
-    <head>
-        <meta charset="utf-8">
-
-        <title>Website ANAKbule</title>
-        <!-- Load external CSS styles -->
-        <link rel="stylesheet" href="styles.css">
-        </head>
-
-    <body>
-
-        <h1>Cek Produk Kami</h1>
-       
-       <ul>
-        <li><a href= "index.html"> Home</a></li>
-        <li><a href= "Design.html"> Design</a></li>
-        <li>Product</li>
-       </ul>
-
-<!DOCTYPE html>
-<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product - Game Scratch</title>
+    <meta charset="utf-8">
+    <title>Website ANAKbule</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        /* --- Gaya Dasar (Reset & Font) --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: #f4f7f6;
-            color: #333;
-            padding-bottom: 40px;
-        }
-
-        /* --- Navigasi Menu --- */
-        nav {
-            background-color: #2c3e50;
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .menu-container {
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-        }
-
-        .menu-link {
-            color: #fff;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 600;
-            padding: 8px 16px;
-            border-radius: 4px;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        .menu-link:hover, .menu-link.active {
-            background-color: #3498db;
-            color: #fff;
-        }
-
-        /* --- Konten Halaman Product --- */
+        /* Area Pengaturan Game Scratch & Kuis khusus di halaman Product */
         .content-section {
             max-width: 650px;
-            margin: 30px auto;
+            margin: 0 auto 30px auto;
             padding: 25px;
             background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
         }
 
         h2 {
             color: #2c3e50;
             margin-bottom: 15px;
-            border-bottom: 2px solid #3498db;
+            border-bottom: 3px solid #dc143c;
             padding-bottom: 8px;
             text-align: center;
+            font-size: 24px;
+            font-family: 'Fredoka', sans-serif;
         }
 
         .welcome-text {
@@ -97,10 +31,9 @@
             font-weight: bold;
             color: #2ecc71;
             margin-top: 15px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
-        /* --- Kontainer Game Scratch --- */
         .game-container {
             display: flex;
             flex-direction: column;
@@ -113,10 +46,10 @@
             width: 400px; 
             height: 330px;
             background: #000;
-            border: 4px solid #2c3e50;
+            border: 4px solid #dc143c;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
 
         iframe {
@@ -125,11 +58,10 @@
             height: 100%;
         }
 
-        /* --- Bagian Instruksi Bermain (Rata Kiri & Rapi) --- */
         .game-instruction {
             background-color: #f8f9fa;
             padding: 20px;
-            border-left: 5px solid #3498db;
+            border-left: 5px solid #dc143c;
             border-radius: 4px;
             text-align: left;
         }
@@ -141,12 +73,18 @@
             font-weight: bold;
         }
 
-        .instruction-step {
+        .game-instruction ol {
+            text-align: left;
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .game-instruction li {
+            text-align: left;
             font-size: 14px;
             color: #444;
             line-height: 1.6;
             margin-bottom: 8px;
-            padding-left: 5px;
         }
 
         .note {
@@ -159,79 +97,53 @@
             border: 1px dashed #ccc;
             line-height: 1.5;
             margin-top: 12px;
+            text-align: left;
         }
-    </style>
-</head>
-<body>
 
-    <div class="content-section">
-        <h2>Produk Game Scratch</h2>
-        
-        <p class="welcome-text">Selamat Bermain!</p>
-        
-        <div class="game-container">
-            <div class="iframe-wrapper">
-                <iframe src="https://scratch.mit.edu/projects/1329083691/embed" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen></iframe>
-            </div>
-        </div>
-
-        <div class="game-instruction">
-            <h3>Cara Bermain:</h3>
-            <p class="instruction-step">1. Klik bendera hijau.</p>
-            <p class="instruction-step">2. Klik 'Start'.</p>
-            <p class="instruction-step">3. Mainkan dengan cara menekan control keyboard "Arrow Keys" (control keyboard paling bawah bagian kiri) untuk menggeser keranjang ke kanan dan kiri.</p>
-            <p class="instruction-step">4. Mainkan sepuasnya, karena tidak ada batasan waktu.</p>
-            
-            <div class="note">
-                <strong>Catatan:</strong> Tekan "Left Arrow/Panah Kiri" untuk menggeser keranjang ke arah kiri, dan tekan "Right Arrow/Panah Kanan" untuk menggeser keranjang ke arah kanan.
-            </div>
-        </div>
-    </div>
-
-</body>
-</html>
-
-    <style>
-        /* Gaya tambahan khusus untuk tampilan kuis agar menarik */
+        /* Tampilan khusus box kuis HTML */
         .quiz-container {
-            max-width: 600px;
-            margin: 20px auto;
+            max-width: 650px;
+            margin: 0 auto 30px auto;
             background: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            font-family: Arial, sans-serif;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
             color: #333333;
+            text-align: center;
         }
-        .quiz-header {
-            border-bottom: 2px solid #eeeeee;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+        
+        .quiz-container h2 {
+            border-bottom: 3px solid #4CAF50;
         }
+
         .btn-opsi {
             display: block;
             width: 100%;
             padding: 12px;
             margin: 10px 0;
-            background-color: #f0f0f0;
+            background-color: #f8f9fa;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 6px;
             text-align: left;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 15px;
+            font-family: 'Poppins', sans-serif;
             transition: background 0.2s;
         }
         .btn-opsi:hover {
-            background-color: #e0e0e0;
+            background-color: #e9ecef;
         }
         .btn-utama {
             background-color: #4CAF50;
             color: white;
-            padding: 10px 20px;
+            padding: 10px 24px;
             border: none;
-            border-radius: 5px;
+            border-radius: 20px;
             cursor: pointer;
             font-size: 16px;
+            font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+            transition: background 0.2s;
         }
         .btn-utama:hover {
             background-color: #45a049;
@@ -251,6 +163,7 @@
             font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            text-align: center;
         }
         table {
             width: 100%;
@@ -259,22 +172,59 @@
         }
         th, td {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 10px;
             text-align: left;
+            font-size: 14px;
         }
-        th { background-color: #f2f2f2; }
+        th { background-color: #f8f9fa; }
     </style>
+</head>
+<body>
+
+    <h1>Cek Produk Kami</h1>
+   
+    <ul class="main-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Design.html">Design</a></li>
+        <li class="active-page">Product</li>
+    </ul>
+
+    <div class="content-section">
+        <h2>Produk Game Scratch</h2>
+        <p class="welcome-text">Selamat Bermain!</p>
+        
+        <div class="game-container">
+            <div class="iframe-wrapper">
+                <iframe src="https://scratch.mit.edu/projects/1329083691/embed" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <div class="game-instruction">
+            <h3>Cara Bermain:</h3>
+            <ol>
+                <li>Klik bendera hijau.</li>
+                <li>Klik 'Start'.</li>
+                <li>Mainkan dengan cara menekan control keyboard "Arrow Keys" (control keyboard paling bawah bagian kiri) untuk menggeser keranjang ke kanan dan kiri.</li>
+                <li>Mainkan sepuasnya, karena tidak ada batasan waktu.</li>
+            </ol>
+            <div class="note">
+                <strong>Catatan:</strong> Tekan "Left Arrow/Panah Kiri" untuk menggeser keranjang ke arah kiri, dan tekan "Right Arrow/Panah Kanan" untuk menggeser keranjang ke arah kanan.
+            </div>
+        </div>
+    </div>
 
     <div class="quiz-container">
         <div id="quiz-box">
             <h2>KUIS MAKANAN SEHAT DAN TIDAK SEHAT</h2>
-            <h3>Yuk, Cari Tahu Makananmu Sudah Termasuk Makanan Sehat Belum, ya?</h3>
-            <p>Tekan tombol di bawah untuk memulai game!</p>
+            <p style="margin: 15px 0; font-size: 15px; font-weight: bold; color: #555;">Yuk, Cari Tahu Makananmu Sudah Termasuk Makanan Sehat Belum, ya?</p>
+            <p style="margin-bottom: 15px; font-size: 14px;">Tekan tombol di bawah untuk memulai game!</p>
             <button class="btn-utama" onclick="mulaiKuis()">Ayo Main</button>
         </div>
     </div>
 
-    <script src="scripts.js"></script>
+    <p class="link-kode">Klik di <a href="https://colab.research.google.com/drive/1l1BXMvsWJhZgSSS8V02I4w2OwkhdKrQO?usp=sharing">sini</a> untuk melihat kode kami</p>
+    
+    <marquee>Made by: ANAKbule</marquee>
 
     <script>
         const rondes = [
@@ -345,6 +295,7 @@
         function mulaiKuis() {
             quizBox.innerHTML = `
                 <h2>Masukkan Namamu</h2>
+                <br>
                 <input type="text" id="input-nama" class="input-nama" placeholder="Tulis nama di sini..."><br>
                 <button class="btn-utama" onclick="simpanNama()">Lanjut</button>
             `;
@@ -373,9 +324,9 @@
                 });
 
                 quizBox.innerHTML = `
-                    <h3>[ RONDE ${dataRonde.ronde} dari ${rondes.length} ]</h3>
-                    <p><strong>${dataRonde.header}</strong></p>
-                    <p>${dataRonde.pertanyaan}</p>
+                    <h3 style='font-size:16px; color: crimson;'>[ RONDE ${dataRonde.ronde} dari ${rondes.length} ]</h3>
+                    <p style='margin: 10px 0; font-weight:bold;'>${dataRonde.header}</p>
+                    <p style='margin-bottom:15px;'>${dataRonde.pertanyaan}</p>
                     <div>${opsiHtml}</div>
                 `;
             } else {
@@ -402,7 +353,7 @@
             quizBox.innerHTML = `
                 <h3>Ronde ${dataRonde.ronde} Selesai</h3>
                 <div class="feedback ${feedbackKelas}">${feedbackTeks}</div>
-                <p>Total Poin Kamu Sekarang: <strong>${totalPoin}</strong></p>
+                <p style='margin-bottom:15px;'>Total Poin Kamu Sekarang: <strong>${totalPoin}</strong></p>
                 <button class="btn-utama" onclick="lanjutRonde()">Ronde Berikutnya</button>
             `;
         }
@@ -441,12 +392,12 @@
 
             quizBox.innerHTML = `
                 <h2>HASIL KUIS</h2>
-                <p><strong>Pemain:</strong> ${namaPemain}</p>
+                <p style='margin: 10px 0;'><strong>Pemain:</strong> ${namaPemain}</p>
                 <p><strong>Total Poin:</strong> ${totalPoin >= 0 ? '+' + totalPoin : totalPoin}</p>
                 <p><strong>Kategori:</strong> ${kategori}</p>
-                <p><em>"${pesan}"</em></p>
+                <p style='margin:10px 0; font-style:italic;'>"${pesan}"</p>
                 
-                <h3>Rekap Jawabanmu:</h3>
+                <h3 style='margin-top:20px; font-size:16px; text-align:left;'>Rekap Jawabanmu:</h3>
                 <table>
                     <tr>
                         <th>Ronde</th>
@@ -460,14 +411,6 @@
             `;
         }
     </script>
-
-<p class="link-kode">Klik di <a href="https://colab.research.google.com/drive/1l1BXMvsWJhZgSSS8V02I4w2OwkhdKrQO?usp=sharing">sini</a> untuk melihat kode kami</p>
-    
-<marquee>Made by: ANAKbule</marquee>
-
-       
-        <!-- Load external JavaScript -->
-        <script src="scripts.js"></script>
-    </body>
-
+    <script src="scripts.js"></script>
+</body>
 </html>

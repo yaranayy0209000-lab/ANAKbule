@@ -1,59 +1,123 @@
 /* Place your CSS styles in this file */
 
-body {background-image: url(download.jpeg);
-          background-repeat: no-repeat;
-          background-position: center;
-          background-attachment:fixed;
-          background-size: 100% 100%;
+/* --- Google Fonts Integration --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Righteous&family=Fredoka:wght@600&display=swap');
+
+/* --- Gaya Dasar --- */
+body {
+    background-image: url(download.jpeg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    padding-bottom: 60px;
+    margin: 0;
 }
 
-h1 {font-family: times new roman; text-align:center ; font-weight: bolder;color: black;
+/* --- Judul Halaman Utama yang Bergaya (Ketentuan 1) --- */
+h1 {
+    font-family: 'Righteous', cursive;
+    text-align: center;
+    font-weight: normal;
+    color: #2c3e50;
+    font-size: 42px;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0px #ffffff, 4px 4px 0px rgba(0,0,0,0.1);
+    margin: 30px 0 20px 0;
 }
 
-p {font-family : times new roman; color: black; text-align:left;
+/* --- Navigasi Menu yang Diperbarui (Ketentuan 2) --- */
+ul.main-nav {
+    list-style-type: none;
+    padding: 12px 0;
+    background-color: crimson;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin: 0 auto 30px auto;
+    max-width: 800px;
+    border-radius: 50px;
 }
 
-ul {List-style-type:none;
-    color : white;
-    border : 50px;
-    background-color : crimson;
+ul.main-nav li {
+    display: inline-block;
+    padding: 0 30px;
+}
+
+ul.main-nav li a, ul.main-nav li.active-page {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* Warna untuk link menu yang tidak aktif */
+ul.main-nav li a {
+    color: #ffcccc;
+}
+
+/* Efek ketika kursor mendekati link menu */
+ul.main-nav li a:hover {
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(255,255,255,0.5);
+}
+
+/* Tampilan khusus untuk halaman yang sedang aktif */
+ul.main-nav li.active-page {
+    color: #ffffff;
+    border-bottom: 3px solid #ffffff;
+    padding-bottom: 2px;
+}
+
+/* --- Kontainer Konten Umum --- */
+.content-wrapper {
+    max-width: 750px;
+    margin: 2em auto;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     text-align: center;
 }
 
-Li {display : inline;
-    padding-left : 50px;
-    padding-right: 50px;
-    font-size : 15px;
-    font-family: caveat;
-    font-weight: bold;
-}
-
+/* --- Merapikan Tampilan Link Kode Google Colab --- */
 .link-kode {
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 25px 0;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 .link-kode a {
-    color: #4CAF50;
+    color: crimson;
     text-decoration: none;
-    font-weight: bold;
+    padding: 5px 12px;
+    border: 2px solid crimson;
+    border-radius: 20px;
+    transition: all 0.3s ease;
 }
 
 .link-kode a:hover {
-    text-decoration: underline;
+    color: #ffffff;
+    background-color: crimson;
+    box-shadow: 0 4px 10px rgba(220, 20, 60, 0.3);
 }
 
+/* --- Teks Berjalan Terpaku di Bawah --- */
 marquee {
     position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: #f1f1f1; /* Memberi warna latar belakang agar teks terlihat jelas */
-    padding: 5px 0;
-    z-index: 999; /* Memastikan teks berjalan selalu berada di lapisan paling depan */
-}
-
-marquee {color : navy; 
-         font : roboto;
+    background-color: #ffffff;
+    padding: 8px 0;
+    z-index: 999;
+    color: navy;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
 }
