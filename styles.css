@@ -28,6 +28,19 @@ h1 {
     margin: 30px 0 20px 0;
 }
 
+.freckle-face-regular {
+  font-family: "Freckle Face", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;   /* Membuat teks otomatis berada di tengah halaman */
+  font-size: 2.5rem;    /* Ukuran font diperbesar agar karakter blobby-nya terlihat jelas */
+  color: #800000;       /* Warna pink ceria yang cocok dengan font-nya (bisa kamu ganti sesuai selera) */
+  margin: 40px auto;    /* Memberikan jarak atas dan bawah yang rapi */
+  background: none;     /* Memastikan bersih tanpa background */
+  box-shadow: none;     /* Memastikan bersih tanpa bayangan */
+  border: none;         /* Memastikan bersih tanpa border */
+}
+
 /* --- Navigasi Menu yang Diperbarui (Ketentuan 2) --- */
 ul.main-nav {
     list-style-type: none;
